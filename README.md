@@ -1,6 +1,7 @@
 ## 🚨 CRITICAL WARNING: System Requirements Warning 🚨
 
 **Running this container chokes your harddrive**
+It will automatically download huge dependencies!
 
 **This project requires at least 5GB to 10GB of free disk space.** While the Minion scripts themselves are tiny, this Dev Container downloads heavy AI infrastructure to run locally:
 * **Docker WSL2 Virtual Disk:** ~3GB+ overhead.
