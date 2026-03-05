@@ -11,7 +11,7 @@
 		"ghcr.io/devcontainers/features/common-utils:1": {}
 	},
 	// 3. Automatically set up your environment on build
-	"postCreateCommand": "python -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install crewai"
+	"postCreateCommand": "python -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt"
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
