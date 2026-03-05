@@ -61,7 +61,8 @@ crew = Crew(
     embedder={   # 2. Force it to use the free local HuggingFace model
         "provider": "huggingface",
         "config": {
-            "model": "sentence-transformers/all-MiniLM-L6-v2"
+            "model": "sentence-transformers/all-MiniLM-L6-v2",
+            "api_key": "not-needed" # This tricks the validator to stop asking for a real key            
         }
     }
 ) 
