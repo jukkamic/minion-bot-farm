@@ -19,15 +19,9 @@ groq_llm = LLM(
     api_key=os.getenv("GROQ_API_KEY")
 )
 
-# 2. Initialize the Tool
-#file_tool = FileReadTool() 
+file_reader = FileReadTool(file_path='../requirements.txt') 
+file_writer = FileWriterTool() 
 
-# Instead of a blank tool, point it exactly where it needs to go.
-# Since the script runs in bot-farm/, we tell it to look one level up (../)
-file_reader = FileReadTool(file_path='../requirements.txt')
-file_writer = FileWriterTool() # Can write to any path it is told to
-
-# --- AGENT 1: The Scout ---
 scout = Agent(
     role='Lead Scout',
     goal='Read the provided file and extract the raw data.',
@@ -37,7 +31,6 @@ scout = Agent(
     verbose=True
 )
 
-# --- AGENT 2: The Scribe ---
 scribe = Agent(
     role='Technical Scribe',
     goal='Format data into a beautiful Markdown report and save it to the disk.',
@@ -47,7 +40,6 @@ scribe = Agent(
     verbose=True
 )
 
-# --- TASKS ---
 read_task = Task(
     description='Use your tool to read the file and extract the list of libraries.',
     expected_output='A raw list of libraries.',
@@ -56,14 +48,25 @@ read_task = Task(
 
 write_task = Task(
     description='Take the list from the Scout. Use your FileWriterTool to write this list into a new file named "dependencies_report.md" inside the current directory. Format the text as a Markdown bulleted list.',
-    expected_output='Confirmation that the dependencies_report.md file was successfully written.',
+    expected_output='Confirmation that the file was successfully written.',
     agent=scribe
 )
 
-# --- THE CREW ---
-# Notice how we pass both agents and both tasks in order!
-crew = Crew(agents=[scout, scribe], tasks=[read_task, write_task], verbose=True) 
+# --- THE UPGRADED CREW ---
+crew = Crew(
+    agents=[scout, scribe], 
+    tasks=[read_task, write_task], 
+    verbose=True,
+    memory=True, # 1. Turn on the memory systems
+    embedder={   # 2. Force it to use the free local HuggingFace model
+        "provider": "huggingface",
+        "config": {
+            "model": "sentence-transformers/all-MiniLM-L6-v2"
+        }
+    }
+) 
+
 result = crew.kickoff()
 
-print("\n--- MINION REPORT ---")
+print("\n--- MASTER CONTROL REPORT ---")
 print(result)
