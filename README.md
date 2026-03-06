@@ -10,6 +10,12 @@ It will automatically download huge dependencies!
 
 Do not spin up this container if your hard drive is critically full!
 
+The next warning was deemed important by AI but it just says this is run in a container so data in the project doesn't persist on your host machine if you destroy the container. Nothing new really. But if you create an .env with an API key that's shown only once you might miss it.
+
+## That's it? Just a big download that starts automatically?
+
+Yes. Because the download runs in container it won't alert your host OS to intervene if the disk reaches maximum capacity. At least not in my Windows.
+
 ## ⚠️ Data Persistence & Docker Volumes 
 
 **DO NOT rely on your local hard drive as a backup for this project.**
