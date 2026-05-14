@@ -8,7 +8,7 @@
 		// 1. Installs the Rust compiler (needed for tiktoken/crewai)
 		"ghcr.io/devcontainers/features/rust:1": {},
 		// 2. Common utilities like curl/git
-		"ghcr.io/devcontainers/features/common-utils:1": {}
+		"ghcr.io/devcontainers/features/common-utils:2": {}
 	},
 	// 3. Automatically set up your environment on build
 	"postCreateCommand": "python -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt",
